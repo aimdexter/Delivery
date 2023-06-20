@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form';
 import { showMessage } from 'react-native-flash-message';
 import { z } from 'zod';
 
-import { useAddPost } from '@/api';
+import { queryClient, useAddPost, usePosts } from '@/api';
 import { Button, ControlledInput, showErrorMessage, View } from '@/ui';
 
 const schema = z.object({
@@ -31,7 +31,7 @@ export const AddPost = () => {
             type: 'success',
           });
           // here you can navigate to the post list and refresh the list data
-          //queryClient.invalidateQueries(usePosts.getKey());
+          queryClient.invalidateQueries(usePosts.getKey());
         },
         onError: () => {
           showErrorMessage('Error adding post');
